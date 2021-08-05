@@ -1,0 +1,11 @@
+ string rootPath = _hostEnviroment.WebRootPath;
+                string fileName = Path.GetFileName(player.PPicFile.FileName);
+
+                string pPath = Path.Combine(rootPath + "/Image/", fileName);
+                player.PlayerPic = fileName;
+                var filStream = new FileStream(pPath, FileMode.Create);
+                await player.PPicFile.CopyToAsync(filStream);
+                filStream.Close();
+                _context.Add(player);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
